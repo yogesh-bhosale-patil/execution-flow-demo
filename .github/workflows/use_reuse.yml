@@ -66,11 +66,23 @@ jobs:
               with:
                   name: dist-files
                   path: dist
+              secrets:
+                  DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT_KEY }}
     deploy:
         needs: build
-        uses: ./.github/workflows/reusable_workflow_demo.yml
+        uses: ./.github/workflows/reusable_workflow_demo.yml@main
         with:
             artifact-name: "dist-files"
+        secrets:
+            DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT_KEY }}
+
+    print-deployed-artifact:
+        needs: deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Output deployed artifact name
+              run: echo "${{ needs.deploy.outputs.deployed-artifact }}"
+
     report:
         needs: [lint, deploy]
         if: failure()
