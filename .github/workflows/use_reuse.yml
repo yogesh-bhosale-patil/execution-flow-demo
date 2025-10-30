@@ -69,7 +69,7 @@ jobs:
 
     deploy:
         needs: build
-        uses: ./.github/workflows/reusable_workflow_demo.yml@main
+        uses: ./.github/workflows/reusable_workflow_demo.yml
         with:
             artifact-name: "dist-files"
         secrets:
