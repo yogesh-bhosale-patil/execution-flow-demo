@@ -1,0 +1,13 @@
+name: Reusable Workflow Demo
+on:
+    workflow_call:
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Output information
+              run: echo "Deploying to production environment......"
+            - name: Show date and time
+              run: date
+            - name: List files
+              run: ls -la
