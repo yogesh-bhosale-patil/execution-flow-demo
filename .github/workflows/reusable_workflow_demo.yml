@@ -1,10 +1,22 @@
 name: Reusable Workflow Demo
 on:
     workflow_call:
+        inputs:
+            artifact-name:
+                description: "Name of the artifact to download"
+                required: false
+                default: "dist-files"
+                type: string
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
+            - name: Get build artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  name: ${ { inputs.artifact-name } }
+            - name: Output contents
+              run: ls
             - name: Output information
               run: echo "Deploying to production environment......"
             - name: Show date and time
